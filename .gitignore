@@ -5,11 +5,7 @@
 ## タイプセットしてできたpdfは要らない:
 tex/*/*.pdf
 /*.pdf
-# !00main.pdf
-# 00main.pdf
-
-## 実験場
-_test
+# !marge.pdf
 
 
 
