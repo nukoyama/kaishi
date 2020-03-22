@@ -3,22 +3,14 @@
 # OS によって実行ファイル名が異なるので、OSを判断する
 # Windows の場合
 if ($^O eq 'MSWin32') {
-  # 通常の LaTeX ドキュメントのビルドコマンド
   $latex                         = 'uplatex %O -kanji=utf8 -no-guess-input-enc -synctex=1 -interaction=nonstopmode %S';
-  # pdfLaTeX のビルドコマンド
   $pdflatex                      = 'pdflatex %O -synctex=1 -interaction=nonstopmode %S';
-  # LuaLaTeX のビルドコマンド
   $lualatex                      = 'lualatex %O -synctex=1 -interaction=nonstopmode %S';
-  # XeLaTeX のビルドコマンド
   $xelatex                       = 'xelatex %O -no-pdf -synctex=1 -shell-escape -interaction=nonstopmode %S';
-  # Biber, BibTeX のビルドコマンド
   $biber                         = 'biber %O --bblencoding=utf8 -u -U --output_safechars %B';
   $bibtex                        = 'upbibtex %O %B';
-  # makeindex のビルドコマンド
   $makeindex                     = 'upmendex %O -o %D %S';
-  # dvipdf のビルドコマンド
   $dvipdf                        = 'dvipdfmx %O -o %D %S';
-  # dvipd のビルドコマンド
   $dvips                         = 'dvips %O -z -f %S | convbkmk -u > %D';
   $ps2pdf                        = 'ps2pdf.exe %O %S %D';
   # PDF の作成方法を指定するオプション
@@ -69,3 +61,10 @@ if ($^O eq 'MSWin32') {
     $pdf_previewer               = 'xdg-open';
   }
 }
+
+# スタイルファイル（.sty）を探索する場所（パス）を追加
+$ENV{'TEXINPUTS'} = './sty//;' . './tex//;';
+# $ENV{'TEXINPUTS'} = './sty//;' . '../sty//;' . '../../sty//;' . './tex//;' . '../../tex//;';
+
+# フォントを探索する場所（パス）を追加
+$ENV{'OPENTYPEFONTS'} = './fonts//;' . '../fonts//;' . '../../fonts//;';
