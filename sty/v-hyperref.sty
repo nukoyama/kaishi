@@ -5,11 +5,15 @@
 %%  Date: 2019-11-03  created
 %%             11-12  set default \hypersetup
 %%             11-12  delete default \hypersetup
-%%
+%%        2020-03-22  check whether vuccaken.sty is loaded
 %%
 
 \RequirePackage{hyperref}
 \RequirePackage{pxjahyper}
+
+\@ifpackageloaded{vuccaken}{}{
+  \PackageWarningNoLine{v-hyperref}{先に vuccaken.sty を読み込んでください}
+}
 
 \def\vaddcontentsline#1#2#3#4{% toc, chapter, title, name
   \begingroup
