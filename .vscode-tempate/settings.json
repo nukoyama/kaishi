@@ -117,5 +117,5 @@
   "files.associations": {
     "*.sty": "latex",
     ".latexmkrc": "perl"
-  },
+  }
 }
