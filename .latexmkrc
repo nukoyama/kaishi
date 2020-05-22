@@ -63,8 +63,8 @@ if ($^O eq 'MSWin32') {
 }
 
 # スタイルファイル（.sty）を探索する場所（パス）を追加
-$ENV{'TEXINPUTS'} = './sty//;' . './tex//;';
-# $ENV{'TEXINPUTS'} = './sty//;' . '../sty//;' . '../../sty//;' . './tex//;' . '../../tex//;';
+# $ENV{'TEXINPUTS'} = './sty//;' . './tex//;';
+$ENV{'TEXINPUTS'} = './sty//;' . '../sty//;' . '../../sty//;' . './tex//;' . '../../tex//;';
 
 # フォントを探索する場所（パス）を追加
 $ENV{'OPENTYPEFONTS'} = './fonts//;' . '../fonts//;' . '../../fonts//;';
@@ -89,7 +89,9 @@ find(
 # say $_ for @texfiles;
 ##---
 
-print "---\n";
+print "%%----------\n";
+print "Running 'kaishi/.latexmkrc'\n";
+
 print "以下のファイルの句読点を置換しました：\n";
 
 foreach my $file(@texfiles)
@@ -108,5 +110,5 @@ foreach my $file(@texfiles)
   # close(OUT);
   # unlink($file.'-tmp'); # delete tmp file
 }
-print "---\n";
-## - - - - - - - - - - -
+print "%%----------\n";
+## - - - - - - - - - - - - - - - - - - - - - -
