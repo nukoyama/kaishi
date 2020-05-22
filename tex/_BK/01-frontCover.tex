@@ -2,10 +2,8 @@
 %     表紙（表）
 %
 
-
-% \input{|"export TEXINPUTS='.//;'"}
-% \immediate\write18{export TEXINPUTS='.//;'}
-\documentclass[10pt,b5paper,papersize,dvipdfmx]{jsbook}
+%% typeset: latexmk (uplatex -> dvipdfmx)
+\documentclass[uplatex,dvipdfmx,10pt,b5paper,papersize]{jsbook}
 
 \usepackage{vuccaken}
 \usepackage{vuccaken2019}
@@ -34,7 +32,7 @@
 %
   \vspace{-1zw}
   {\fontsize{13}{0}\selectfont \coverFont
-            令和元年度 \\ 
+            令和元年度 \\
             物理科学研究会誌
   }
 %
