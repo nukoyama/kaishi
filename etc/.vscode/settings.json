@@ -13,6 +13,7 @@
       "name": "latexmk (uplatex) for kaishi",
       "command": "latexmk",
       "args": [
+        "-e", "read_first_rc_file_in_list( '../../latexmkrc', '../../.latexmkrc' );",
         "-g",
         "-e", "$latex                = 'uplatex %O -synctex=1 -file-line-error -halt-on-error %S'",
         "-e", "$bibtex               = 'upbibtex %O %B'",
