@@ -68,3 +68,45 @@ $ENV{'TEXINPUTS'} = './sty//;' . './tex//;';
 
 # フォントを探索する場所（パス）を追加
 $ENV{'OPENTYPEFONTS'} = './fonts//;' . '../fonts//;' . '../../fonts//;';
+
+
+## - - - - 句読点を自動置換 - - - - - - - -
+# @texfiles = glob("{*.tex,tex/*/*.tex,tex/*/*/*.tex}");
+##--- finding tex files
+use 5.010;
+use Encode::Locale;
+use File::Find;
+
+my @texfiles;
+find(
+  {
+    wanted => sub {
+      push @texfiles, Encode::decode locale_fs => $File::Find::name if $File::Find::name =~ /\.tex$/;
+    },
+  },
+  ".",
+);
+# say $_ for @texfiles;
+##---
+
+print "---\n";
+print "以下のファイルの句読点を置換しました：\n";
+
+foreach my $file(@texfiles)
+{
+  print "  ".$file."\n";
+  # rename($file, $file.'-tmp');
+  # open(IN, '<', $file.'-tmp') or die $!;
+  # open(OUT, '>', $file) or die $!;
+  # while(<IN>)
+  # {
+  #   $_ =~ s/、/，/g;
+  #   $_ =~ s/。/．/g;
+  #   print OUT $_;
+  # }
+  # close(IN);
+  # close(OUT);
+  # unlink($file.'-tmp'); # delete tmp file
+}
+print "---\n";
+## - - - - - - - - - - -
