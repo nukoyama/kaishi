@@ -1,6 +1,4 @@
 %%
-%%    This file is "marge.tex"
-%%
 %%       title: 令和二年度 会誌『白夜』第5号？
 %%      author: †物理科学研究会†
 %%
@@ -19,6 +17,8 @@
 \usepackage{vuccaken2019}
 
 \usepackage{sample}
+\usepackage{template}
+\usepackage{nkym}
 
 \tocfalse % 各ファイルのtocを非表示に
 
@@ -27,7 +27,7 @@
 \maintrue
 \backtrue
 
-\begin{document} % - - - - - - - - - - - - - - - - - -
+\begin{document} % - - - - - - - - - - - - - - - - -
 
 \iffront
   \frontmatter
@@ -41,14 +41,7 @@
 \ifmain
   \vInputTeX[_template]{template}
   \vInputTeX[_sample]{sample}
-  % \vInputTeX{fukuda}
-  % \vInputTeX{namba}
-  % \vInputTeX{fujiki}
-  % \vInputTeX{kfuji} % drop out
-  % \vInputTeX{yoshida}
-  % \vInputTeX{robocon}
-  % \vInputTeX{nkym}
-  % \vInputTeX{kadono}
+  \vInputTeX{nkym}
 \fi
 
 \ifback

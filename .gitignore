@@ -1,6 +1,9 @@
 ## Mac OS setting file:
 .DS_Store
 
+## vscode settings
+.vscode/settings.json
+
 
 ## タイプセットしてできたpdfは要らない:
 tex/*/*.pdf
