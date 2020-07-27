@@ -13,17 +13,31 @@
       "name": "latexmk (uplatex) for kaishi",
       "command": "latexmk",
       "args": [
-        "-e", "read_first_rc_file_in_list( '../../latexmkrc', '../../.latexmkrc' );",
-        "-g",
-        "-e", "$latex                = 'uplatex %O -synctex=1 -file-line-error -halt-on-error %S'",
-        "-e", "$bibtex               = 'upbibtex %O %B'",
-        "-e", "$biber                = 'biber %O --bblencoding=utf8 -u -U --output_safechars %B'",
-        "-e", "$makeindex            = 'upmendex %O -o %D %S'",
-        "-e", "$dvipdf               = 'dvipdfmx %O -o %D %S';",
-        "-e", "$ENV{'TEXINPUTS'}     = './sty//;' . '../sty//;' . '../../sty//;' . './tex//;' . '../../tex//;'",
-        "-e", "$ENV{'OPENTYPEFONTS'} = './fonts//;' . '../fonts//;' . '../../fonts//;'",
-        "-pdfdvi", // generate pdf by dvipdf
+        "-e",
+        "read_first_rc_file_in_list( '../../latexmkrc', '../../.latexmkrc' );",
+        // "-g",
+        // "-e", "$latex                = 'uplatex %O -synctex=1 -file-line-error -halt-on-error %S'",
+        // "-e", "$bibtex               = 'upbibtex %O %B'",
+        // "-e", "$biber                = 'biber %O --bblencoding=utf8 -u -U --output_safechars %B'",
+        // "-e", "$makeindex            = 'upmendex %O -o %D %S'",
+        // "-e", "$dvipdf               = 'dvipdfmx %O -o %D %S';",
+        // "-pdfdvi", // generate pdf by dvipdf
         "%DOC%"
+      ],
+      "env": {
+        "TEXMFHOME": "./sty//;./tex//;./fonts//;../../sty//;../../tex//;../../fonts//;",
+        // "TEXINPUTS": "./sty//;../sty//;../../sty//;./tex//;../../tex//;",
+        // "OPENTYPEFONTS": "./fonts//;../fonts//;../../fonts//;"
+      }
+    },
+    { // 句読点置換
+      "name": "replace kuto-ten",
+      "command": "perl",
+      "args": [
+        "-pe",
+        "s/、/，/g; s/。/．/g",
+        "-i",
+        "%DOC_EXT%"
       ]
     },
     // latexmk を利用した platex によるビルドコマンド
@@ -47,8 +61,8 @@
         // "-synctex=1", // generate SyncTeX data for previewers
         // "-file-line-error", // enable file:line:error style messages
         // "-halt-on-error", // stop processing at the first error
-        // "-interaction=nonstopmode", // set interaction mode
-        // "%DOC%"
+        // "-interaction=nonstopmode", // non stop mode
+        "%DOC%"
       ]
     },
     // latexmk を利用した lualatex によるビルドコマンド
@@ -66,8 +80,9 @@
     {
       "name": "kaishi",
       "tools": [
+        "replace kuto-ten",
         "latexmk (uplatex) for kaishi"
-      ]
+      ],
     },
     // LaTeX(pLaTeX) で書かれた文書のビルドレシピ
     {
