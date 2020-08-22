@@ -1,6 +1,5 @@
 %%
-%%    This file is "vuccaken2019.sty"
-%%    2019-08-06 created
+%%    This file is "vuccaken.sty"
 %%
 
 
@@ -17,9 +16,8 @@
 % \renewcommand\kanjifamilydefault{\gtdefault} % ゴシック
 % \renewcommand\familydefault{\sfdefault} % sans serif
 % \usepackage{newtxtext,newtxmath} % 数式のフォント
-% \renewcommand{\vEmphFont}{\bfseries}
-\renewcommand{\vEmphFont}{\gtfamily\sffamily}
-\renewcommand{\headfont}{\vEmphFont} % 見出しのフォント
+\renewcommand{\vEmphFont}{\bfseries} % 強調のフォント
+\renewcommand{\headfont}{\gtfamily\sffamily} % 見出しのフォント
 
 %% 数式
 \usepackage{amsmath,amssymb} % 数式関係
@@ -54,39 +52,13 @@
 %% toc
 \setcounter{tocdepth}{2} % 目次にどこまで表示するか
 \newif\iftoc % 目次の出力制御
-\toctrue % default で true
+\ifmarge\else\toctrue\fi % marge.tex 以外で true
 \newcommand\mokuji[1]{%
   \iftoc
-    \frontmatter
     \setcounter{tocdepth}{#1} % 目次に表示する深さ
     \tableofcontents % 目次出力
-    \mainmatter
   \fi
 }
-
-%% hyperref color settings
-\ifdefined\hypersetup
-  \hypersetup{% pdf設定
-    bookmarksnumbered = true,
-    setpagesize       = false,
-    pdftitle    = {白夜 第四号},
-    pdfauthor   = {物理科学研究会},
-    pdfsubject  = {令和元年度 物理科学研究会誌},
-    pdfkeywords = {立命館大学; 学友会学術部; 物理科学研究会; 会誌; 白夜;},
-  }
-  % \hypersetup{% color
-  %   colorlinks  = true,
-  %   anchorcolor = black,
-  %   linkcolor   = blue,
-  %   citecolor   = green,
-  %   filecolor   = magenta,
-  %   urlcolor    = cyan
-  % }
-  \hypersetup{% 白黒
-    pdfborder  = {0 0 0},
-    colorlinks = false
-  }
-\fi
 
 %% 名前の間にスペースを入れる
 \newcommand\vmane@space{~}
@@ -97,9 +69,39 @@
 %%  marge.tex で使用
 %% - - - - - - - - - - - - - - - - - - - -
 
-\usepackage{docmute} % \inputを改良
+\ifmarge
+  %% hyperref settings
+  \ifdefined\hypersetup
+    \hypersetup{% pdf設定
+      bookmarksnumbered = true,
+      setpagesize       = false,
+      pdftitle    = {白夜 第五号},
+      pdfauthor   = {物理科学研究会},
+      pdfsubject  = {令和二年度 物理科学研究会誌},
+      pdfkeywords = {立命館大学; 学友会学術部; 物理科学研究会; 会誌; 白夜;},
+    }
+    % \hypersetup{% color
+    %   colorlinks  = true,
+    %   anchorcolor = black,
+    %   linkcolor   = blue,
+    %   citecolor   = green,
+    %   filecolor   = magenta,
+    %   urlcolor    = cyan
+    % }
+    \hypersetup{% 白黒
+      pdfborder  = {0 0 0},
+      colorlinks = false
+    }
+  \fi
+
+  %% switch to read eath content
+  \newif\iffront
+  \newif\ifmain
+  \newif\ifback
+\fi
 
 %% 最強のinputコマンド
+\usepackage{docmute} % \inputを改良
 \newcommand{\vInputTeX}{\@dblarg\v@InputTeX}
 \def\v@InputTeX[#1]#2{%
   \def\pathToFiles{./tex/#1/}
@@ -107,12 +109,6 @@
   \graphicspath{{\pathToFiles}}
   \input{\pathToFiles#2}
 }
-
-%% switch to read eath content
-\newif\iffront
-\newif\ifmain
-\newif\ifback
-
 
 %% - - - - - - - - - - - - - - - - - - - - - - - - -
 %%  本文以外の部分
