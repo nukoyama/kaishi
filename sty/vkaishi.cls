@@ -1,37 +1,43 @@
 %%
-%%     This file is "vuccaken.sty"
-%%
-%%     2018-03-08 15:30 created
-%%     2018-11-25 調整 \vaddcontentsline
-%%     2019-08-06 微調整
-%%     2019-11-03 微調整 & v-hyperref
-%%     2019-11-06 thebibliography を追加
-%%     2019-11-12 add 'analog option'
+%%  This file is 'vkaishi.cls'
 %%
 
-%%  require "jsbook class"
+%% クラスファイルの宣言
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{vkaishi}[2020/08/23 vuccaken kaishi class]
 
+%% 新規 if 文の宣言
+\newif\ifanalog
+\newif\ifmarge
 
+%% vkaishi クラスの新規オプション
+\DeclareOption{analog}{\analogtrue}
+\DeclareOption{marge}{\margetrue}
 
-%% パッケージの option
-\DeclareOption{analog}{% 紙に印刷して製本するとき用
-  %% inner margin settings
-  \addtolength{\oddsidemargin}{10truemm}   % odd(right) page
-  \addtolength{\evensidemargin}{-10truemm} % even(left) page
-}
+%% \documentclass で与えたオプションを、jsbook クラスにも与える。
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{jsbook}}
 \ProcessOptions\relax
 
-%% hyperref.styを読み込んでいなくてもOK
+%% デフォルトでオプションを与えつつ、jsbook クラスをロード。
+\LoadClass[10pt,b5paper,papersize]{jsbook}
+
+
+%% hyperref.styを読み込んでいなくてもOK。
+%% そのときは \texorpdfstring をエスケープ。
 \ifdefined\texorpdfstring\else
   \newcommand{\texorpdfstring}[2]{#1}
 \fi
 
-%% 強調のフォントのデフォルト値。必要であれば上書き。
-\newcommand\vEmphFont{\bfseries}
+%% 見出しのフォントを変更
+%% original (jsclsass): \gtfamily\sffamily
+\renewcommand{\headfont}{\bfseries}
 
-%%                        %%
-%%      kaishi title      %%
-%%                        %%
+%% 強調のフォント
+\newcommand\vEmphFont{\headfont}
+
+%% - - - - - - - - - - - - - - - - - - - - - %%
+%% 各章のタイトル出力コマンド \kaishititle の定義
+%% - - - - - - - - - - - - - - - - - - - - - %%
 
 %% \kaishititle{title}{na}{me}
 \newcommand{\kaishititle}[3]{%
@@ -130,14 +136,11 @@
       \penalty\@highpenalty
     \endgroup
   \fi}
-
-%% 見出しのフォント。 jsclsass: \gtfamily\sffamily
-\renewcommand{\headfont}{\bfseries}
+%% - - - end of definition: \kaishititle - - - - -
 
 
-%%
-%% 参考文献の thebibliography は、デフォだとchapterなので、sectionに変更
-%%
+%% 参考文献の thebibliography 環境は、
+%% デフォだと chapter なので、section に変更
 \renewenvironment{thebibliography}[1]{%
   \global\let\presectionname\relax
   \global\let\postsectionname\relax
@@ -166,5 +169,5 @@
 
 
 %%
-%%  End of vuccaken.sty
+%%  End of vkaishi.cls
 %%
