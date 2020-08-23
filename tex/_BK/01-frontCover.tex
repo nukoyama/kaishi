@@ -3,56 +3,58 @@
 %
 
 %% typeset: latexmk (uplatex -> dvipdfmx)
-\documentclass[uplatex,dvipdfmx,10pt,b5paper,papersize]{jsbook}
+\documentclass[uplatex,dvipdfmx]{vkaishi}
 
 \usepackage{vuccaken}
-\usepackage{vuccaken2019}
 
 % --------------------------------------
 \begin{document}
 
 \thispagestyle{empty}
 
-%% font どれ？？？
-%% 書体：\mcfamily, \gtfamily
-%% 太さ：\bfseries
+%% フォント
 \newcommand\coverFont{\gtfamily}
 
 \begin{center}
-  {\fontsize{90}{0}\selectfont \bfseries 白 夜}
-  % \includegraphics[width=8.5cm]{01img02.png}
+  {
+    \fontsize{90pt}{0}\selectfont {\bfseries 白~夜}
+    \vspace{-0.5zw}\\
+    {
+      \fontsize{18}{0}\selectfont
+      \vspace{-0.5zw}\hfill
+      {\coverFont \vNumbering}\hspace{0.5zw}
+      \vspace{-0.5zw}
+    }\\
+    \vspace{0.5zw}
+  }
 %
-  \begin{flushright}
-    \vspace{-6zw}
-    {\fontsize{18}{0}\selectfont \coverFont
-            第四号
-    \hspace{.5zw}\vspace{-1zw}}
-    \vspace{6zw}
-  \end{flushright}
-%
-  \vspace{-1zw}
-  {\fontsize{13}{0}\selectfont \coverFont
-            令和元年度 \\
-            物理科学研究会誌
+  {
+    \fontsize{13}{0}\selectfont \coverFont
+      \vNendo\\
+      物理科学研究会誌
   }
 %
   \vfill
+%
   % \includegraphics[width=0.6\textwidth]{img/negi.png}
   % \begin{tikzpicture}[inner sep=0pt]
   %   \node[anchor=south west] (negi) at (0,0)
   %     {\includegraphics[width=0.6\textwidth]{img/negi.png}};
   %   \node at (5.2,2.5) {\fontsize{50}{0}\selectfont\tt REIWA};
   % \end{tikzpicture}
-  %
+%
   \begin{tikzpicture}[inner sep=0pt]
     \node at (0,0) {};
-    \node (negi) at (8,0)
-      {\includegraphics[width=0.7\textwidth]{img/negiR-1024}};
+    % \node (negi) at (8,0){\includegraphics[height=0.7\textwidth, frame=1pt]{img/negiR-1024}};
+    \node (image) at (0,0){\includegraphics[height=0.8\textwidth, frame=1pt]{img/negi.png}};
   \end{tikzpicture}
+%
   \vfill
-  {\fontsize{13}{0}\selectfont \coverFont
-            学友会学術部 \\ % \vspace{0.2zw}
-            立命館大学 物理科学研究会
+%
+  {
+    \fontsize{13}{0}\selectfont \coverFont
+      立命館大学 学友会学術部\\
+      物理科学研究会
   }
 \end{center}
 
