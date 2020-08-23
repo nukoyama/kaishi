@@ -1,170 +1,213 @@
 %%
-%%     This file is "vuccaken.sty"
-%%
-%%     2018-03-08 15:30 created
-%%     2018-11-25 調整 \vaddcontentsline
-%%     2019-08-06 微調整
-%%     2019-11-03 微調整 & v-hyperref
-%%     2019-11-06 thebibliography を追加
-%%     2019-11-12 add 'analog option'
+%%    This file is "vuccaken.sty"
 %%
 
-%%  require "jsbook class"
-
-
-
-%% パッケージの option
-\DeclareOption{analog}{% 紙に印刷して製本するとき用
-  %% inner margin settings
-  \addtolength{\oddsidemargin}{10truemm}   % odd(right) page
-  \addtolength{\evensidemargin}{-10truemm} % even(left) page
+\newcommand\vNumbering{第五号}
+\newcommand\vNumberingRoma{V}
+\newcommand\vNendo{令和二年度}
+\newcommand\vYear{2020}
+\newcommand\vDate{2020.08.23}
+\newcommand\vEditor{エディタ}
+\newcommand\vIllustrator{イラストレータ}
+\newcommand\vPublish{% tabularx env.
+  2019年 & 12月 & 1日 & 初版発行 \\
+  % 2020年 & 1月 & 1日 & 第2版発行
 }
-\ProcessOptions\relax
+\newcommand\vHistory{% tabularx env.
+  1949年 & 核物理研究会として発足 \\
+  1973年 & 現存する最古の会誌 出版 \\
+  2000年 & 物理科学研究会に改名   \\
+  2016年 & 会誌『白夜 第一号』出版 \\
+  2017年 & OB会の開催           \\
+        & 会誌『白夜 第二号』出版 \\
+  2018年 & 会誌『白夜 第三号』出版 \\
+  2019年 & 会誌『白夜 第四号』出版 \\
+        & OB会の開催 \\
+  2020年 & 会誌『白夜 第五号』出版
+}
 
-%% hyperref.styを読み込んでいなくてもOK
-\ifdefined\texorpdfstring\else
-  \newcommand{\texorpdfstring}[2]{#1}
+%% - - - - - - - - - - - - - - - - - - - -
+%%  全体の設定
+%% - - - - - - - - - - - - - - - - - - - -
+
+%% FONT
+% \usepackage[T1]{fontenc} % font encoding を変更: OT1 → T1
+\usepackage{lmodern} % Latin Modern フォントを使う
+\usepackage[expert,deluxe]{otf} % font
+\usepackage[sourcehan,unicode]{pxchfon} % 源ノフォント
+
+% \renewcommand\kanjifamilydefault{\gtdefault} % ゴシック
+% \renewcommand\familydefault{\sfdefault} % sans serif
+% \usepackage{newtxtext,newtxmath} % 数式のフォント
+% \renewcommand{\vEmphFont}{\bfseries}
+\renewcommand{\vEmphFont}{\gtfamily\sffamily} % 強調のフォント
+\renewcommand{\headfont}{\gtfamily\sffamily} % 見出しのフォント
+
+%% 数式
+\usepackage{amsmath,amssymb} % 数式関係
+% \usepackage{amsthm} % theorem, proof env
+% \usepackage{mathtools} % dcases environment
+\usepackage{physics} % 便利パッケージ
+\usepackage{cases} % numcases
+
+%% 図
+\usepackage{graphicx} % 図の挿入
+% \usepackage{wrapfig} % 文章中に図
+\usepackage{here} % option H で図を強制出力
+\usepackage{support-caption} % kill caption warning
+\usepackage{subcaption} % subfigure env
+\captionsetup{labelsep=quad, margin=5zw} % caption setting
+\captionsetup[sub]{subrefformat=parens,labelsep=quad} % subcaption setting
+% \caption@setbool{documentclass}{1}
+% \def\caption@documentclass{beamer}
+
+%% 表
+\usepackage{array}
+\usepackage{tabularx}
+
+%% その他 sty
+\usepackage{enumitem} % enumerate
+\usepackage{url} % URLをそのまま表示してくれる
+% \usepackage{listings,jlisting} % ソースコード表示
+% \usepackage{ascmac} % 枠を作るやつ
+\usepackage{xcolor} % 色を付ける
+\usepackage{tikz} % おえかきできるツール
+
+%% toc
+\setcounter{tocdepth}{2} % 目次にどこまで表示するか
+\newif\iftoc % 目次の出力制御
+\ifmarge\else\toctrue\fi % marge.tex 以外で true
+\newcommand\mokuji[1]{%
+  \iftoc
+    \setcounter{tocdepth}{#1} % 目次に表示する深さ
+    \tableofcontents % 目次出力
+  \fi
+}
+
+%% 名前の間にスペースを入れる
+\newcommand\vmane@space{~}
+\newcommand\vname[2]{#1\vmane@space#2}
+
+
+%% - - - - - - - - - - - - - - - - - - - -
+%%  marge.tex で使用
+%% - - - - - - - - - - - - - - - - - - - -
+
+\ifmarge
+  %% hyperref settings
+  \ifdefined\hypersetup
+    \hypersetup{% pdf設定
+      bookmarksnumbered = true,
+      setpagesize       = false,
+      pdftitle    = {白夜~\vNumbering},
+      pdfauthor   = {物理科学研究会},
+      pdfsubject  = {\vNendo~物理科学研究会誌},
+      pdfkeywords = {立命館大学; 学友会学術部; 物理科学研究会; 会誌; 白夜;},
+    }
+    % \hypersetup{% color
+    %   colorlinks  = true,
+    %   anchorcolor = black,
+    %   linkcolor   = blue,
+    %   citecolor   = green,
+    %   filecolor   = magenta,
+    %   urlcolor    = cyan
+    % }
+    \hypersetup{% 白黒
+      pdfborder  = {0 0 0},
+      colorlinks = false
+    }
+  \fi
+
+  %% switch to read eath content
+  \newif\iffront
+  \newif\ifmain
+  \newif\ifback
 \fi
 
-%% 強調のフォントのデフォルト値。必要であれば上書き。
-\newcommand\vEmphFont{\bfseries}
-
-%%                        %%
-%%      kaishi title      %%
-%%                        %%
-
-%% \kaishititle{title}{na}{me}
-\newcommand{\kaishititle}[3]{%
-  \vchapter{#2\hspace{1zw}#3}{#1}
-  \vspace{-40pt}
-  \begin{flushright}
-    {\vEmphFont \large #2} \\ \vspace{3pt} %所属
-    {\vEmphFont \large #3} \\ \vspace{30pt} %名前
-  \end{flushright}}
-
-%% \vchapter{name}{title}
-\newcommand{\vchapter}[2]{%
-  \if@openleft\cleardoublepage\else
-  \if@openright\cleardoublepage\else\clearpage\fi\fi
-  \plainifnotempty % 元: \thispagestyle{plain}
-  \global\@topnum\z@
-  \if@english \@afterindentfalse \else \@afterindenttrue \fi
-  \@omit@numberfalse
-  \@vchapter{#1}{#2}}
-
-%% \@vchapter{name}{title}
-\def\@vchapter#1#2{%
-  \ifnum \c@secnumdepth >\m@ne
-    \if@mainmatter
-      \refstepcounter{chapter}%
-      \typeout{\@chapapp\thechapter\@chappos}%
-      \vaddcontentsline{toc}{chapter}%
-        {\protect\numberline
-        % {\if@english\thechapter\else\@chapapp\thechapter\@chappos\fi}%
-        {\@chapapp\thechapter\@chappos}#2}{#1}%
-    \else\vaddcontentsline{toc}{chapter}{#2}{#1}\fi
-  \else
-    \vaddcontentsline{toc}{chapter}{#2}{#1}%
-  \fi
-  \chaptermark{#2}%
-  \addtocontents{lof}{\protect\addvspace{10\jsc@mpt}}%
-  \addtocontents{lot}{\protect\addvspace{10\jsc@mpt}}%
-  \if@twocolumn
-    \@topnewpage[\@makechapterhead{#2}]%
-  \else
-    \@makechapterhead{#2}%
-    \@afterheading
-  \fi}
-
-% %% 弄ってない
-% %% \addcontents{toc}{\vcontentsline{chapter}{title}{name}{page}}
-% \long\def\addtocontents#1#2{%
-%   \protected@write\@auxout
-%       {\let\label\@gobble \let\index\@gobble \let\glossary\@gobble}%
-%       {\string\@writefile{#1}{#2}}}
-
-%%% - - - - v-hyperref.sty で上書きされる - - - - %%%
-
-%% \vaddcontentsline{toc}{chapter}{title}{name}
-\def\vaddcontentsline#1#2#3#4{%
-  \addtocontents{#1}{\protect\vcontentsline{v#2}{#3}{#4}{\thepage}}\protected@file@percent
+%% 最強のinputコマンド
+\usepackage{docmute} % \inputを改良
+\newcommand{\vInputTeX}{\@dblarg\v@InputTeX}
+\def\v@InputTeX[#1]#2{%
+  \def\pathToFiles{./tex/#1/}
+  \def\input@path{{\pathToFiles}}
+  \graphicspath{{\pathToFiles}}
+  \input{\pathToFiles#2}
 }
 
-%% \contentsline{chapter}
-\def\vcontentsline#1{\csname l@#1\endcsname}
+%% - - - - - - - - - - - - - - - - - - - - - - - - -
+%%  本文以外の部分
+%% - - - - - - - - - - - - - - - - - - - - - - - - -
 
-%%% - - - - - - - - - - - - - - - - - - - - - - %%%
+%% 表紙
+%% \includegraphics に枠を付けるoption
+\usepackage[export]{adjustbox}
 
-%% \l@vchapter{title}{name}{page}
-\newcommand*{\l@vchapter}[3]{%
-  \ifnum \c@tocdepth >\m@ne
-    \addpenalty{-\@highpenalty}%
-    \addvspace{1.0em \@plus\jsc@mpt}
-    \begingroup
-      \parindent\z@
-      \rightskip\@tocrmarg
-      \parfillskip-\rightskip
-      \leavevmode\headfont
-      % \if@english\setlength\@lnumwidth{5.5em}\else\setlength\@lnumwidth{4.683zw}\fi
-      \setlength\@lnumwidth{\jsc@tocl@width}\advance\@lnumwidth 2.683zw
-      \advance\leftskip\@lnumwidth \hskip-\leftskip
-      {\large #1}\\\samepage\nobreak\hfil#2\nobreak\hbox to\@pnumwidth{\hss#3}\par % 2019-08-06 \samepage 挿入
-      \penalty\@highpenalty
-    \endgroup
-  \fi}
-
-%% 本物の方も弄る（#1のフォントサイズ -> \large）
-\renewcommand*{\l@chapter}[2]{%
-  \ifnum \c@tocdepth >\m@ne
-    \addpenalty{-\@highpenalty}%
-    \addvspace{1.0em \@plus\jsc@mpt}
-    \begingroup
-      \parindent\z@
-      \rightskip\@tocrmarg
-      \parfillskip-\rightskip
-      \leavevmode\headfont
-      % \if@english\setlength\@lnumwidth{5.5em}\else\setlength\@lnumwidth{4.683zw}\fi
-      \setlength\@lnumwidth{\jsc@tocl@width}\advance\@lnumwidth 2.683zw
-      \advance\leftskip\@lnumwidth \hskip-\leftskip
-      {\large #1}\nobreak\hfil\nobreak\hbox to\@pnumwidth{\hss#2}\par
-      \penalty\@highpenalty
-    \endgroup
-  \fi}
-
-%% 見出しのフォント。 jsclsass: \gtfamily\sffamily
-\renewcommand{\headfont}{\bfseries}
-
-
-%%
-%% 参考文献の thebibliography は、デフォだとchapterなので、sectionに変更
-%%
-\renewenvironment{thebibliography}[1]{%
-  \global\let\presectionname\relax
-  \global\let\postsectionname\relax
-  % \chapter*{\bibname}\@mkboth{\bibname}{}% 元
-  % \addcontentsline{toc}{chapter}{\bibname}% 元
-  \section*{\bibname}\markright{\bibname}% 変更
-  \addcontentsline{toc}{section}{\bibname}% 変更
-  \list{\@biblabel{\@arabic\c@enumiv}}%
-      {\settowidth\labelwidth{\@biblabel{#1}}%
-        \leftmargin\labelwidth
-        \advance\leftmargin\labelsep
-        \@openbib@code
-        \usecounter{enumiv}%
-        \let\p@enumiv\@empty
-        \renewcommand\theenumiv{\@arabic\c@enumiv}}%
-  \sloppy
-  \clubpenalty4000
-  \@clubpenalty\clubpenalty
-  \widowpenalty4000%
-  \sfcode`\.\@m
+%% 巻頭言・編集後記
+%% usage: \hensyukoki{巻頭言 or 編集後記}{学部}{名前}{日付}
+\newenvironment{preface}[5]{%
+  \newcommand\pf@name{#1}%
+  \newcommand\pf@position{#2}%
+  \newcommand\pf@belong{#3}%
+  \newcommand\pf@author{#4}%
+  \newcommand\pf@date{#5}%
+  \cleardoublepage%
+  % \section*{\pf@name}\@mkboth{}{\pf@name}% 本文では section
+  \chapter*{\pf@name}\@mkboth{\pf@name}{}% 本文では chapter
+  \addcontentsline{toc}{chapter}{\pf@name}% 目次では chapter
 }{%
-  \def\@noitemerr
-    {\@latex@warning{Empty `thebibliography' environment}}%
-    \endlist
+  \begin{flushright}%
+    \vEmphFont
+    \pf@date\par
+    \pf@position\hspace{1zw}\ignorespaces
+    \pf@belong\hspace{1zw}\pf@author
+  \end{flushright}\par%
 }
+
+\newcommand\vuccaken{\@ifstar{物理科学研究会}{vuccaken}}
+
+%% - - - - - - - - - - - - - - - - - - - - - - - - -
+%%  共通：便利マクロ
+%% - - - - - - - - - - - - - - - - - - - - - - - - -
+
+%% 数式番号付加
+\def\atag{\refstepcounter{equation}\tag{\theequation}}
+
+%% 単位をローマン体にするコマンド
+\newcommand\tani{\@ifstar\s@tani\ns@tani}
+\newcommand\ns@tani[1]{\,\mathrm{#1}} % star
+\newcommand\s@tani[1]{\,\mathrm{[#1]}} % no star
+
+%% in math environment
+\newcommand\dsum{\sum\limits} % sum in text line
+\newcommand\vc[1]{\vb*#1} % vector
+\newcommand\del\partial
+\newcommand\const{\mathrm{const.}}
+
+% in text line
+\newcommand\QED{\hfill □\par} % put QED
+\newcommand\siki[1]{(\ref{eq:#1})}
+\newcommand\zu[1]{図\ref{fig:#1}}
+\newcommand\hyo[1]{表\ref{tab:#1}}
+\newcommand\ftj[1]{{\vEmphFont #1}}
+
+%% 上付きバー \widebar
+% \usepackage{accents}
+% \renewcommand\bar{\accentset{{\cc@style\underline{\mskip10mu}}}}
+
+%% tikz
+% \usepackage{tikz}
+% \usepackage{xcolor}
+% \usepackage{gnuplot-lua-tikz}
+% \usetikzlibrary{quotes,angles,arrows}
+% \usetikzlibrary{decorations.pathmorphing}
+% \usetikzlibrary{calc}
+
+%% あとで図を入れる目印
+\newcommand\karizu[1]{\begin{center}（図：#1）\end{center}}
+
+
 
 
 %%
-%%  End of vuccaken.sty
+%% EOF
 %%

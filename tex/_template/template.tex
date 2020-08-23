@@ -4,13 +4,12 @@
 %%
 
 %% typeset: latexmk (uplatex -> dvipdfmx)
-\documentclass[uplatex,dvipdfmx,10pt,b5paper,papersize]{jsbook}
+\documentclass[uplatex,dvipdfmx]{vkaishi}
 
 %% vuccaken.sty などを読み込むには，環境変数 `TEXINPUTS` に
 %% このファイルからの相対パス `../../sty/` を追加する必要があります．
 \usepackage{vuccaken}
 % \usepackage{v-hyperref}
-\usepackage{vuccaken2019}
 
 %% スタイルファイルの読み込み（\usepackage{}）や自作マクロは，
 %% プリアンブル（ここ）ではなく，自分のスタイルファイル（.sty）に書く．
