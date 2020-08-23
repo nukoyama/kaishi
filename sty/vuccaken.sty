@@ -2,6 +2,29 @@
 %%    This file is "vuccaken.sty"
 %%
 
+\newcommand\vNumbering{第五号}
+\newcommand\vNumberingRoma{V}
+\newcommand\vNendo{令和二年度}
+\newcommand\vYear{2020}
+\newcommand\vDate{2020.08.23}
+\newcommand\vEditor{エディタ}
+\newcommand\vIllustrator{イラストレータ}
+\newcommand\vPublish{% tabularx env.
+  2019年 & 12月 & 1日 & 初版発行 \\
+  % 2020年 & 1月 & 1日 & 第2版発行
+}
+\newcommand\vHistory{% tabularx env.
+  1949年 & 核物理研究会として発足 \\
+  1973年 & 現存する最古の会誌 出版 \\
+  2000年 & 物理科学研究会に改名   \\
+  2016年 & 会誌『白夜 第一号』出版 \\
+  2017年 & OB会の開催           \\
+        & 会誌『白夜 第二号』出版 \\
+  2018年 & 会誌『白夜 第三号』出版 \\
+  2019年 & 会誌『白夜 第四号』出版 \\
+        & OB会の開催 \\
+  2020年 & 会誌『白夜 第五号』出版
+}
 
 %% - - - - - - - - - - - - - - - - - - - -
 %%  全体の設定
@@ -16,7 +39,8 @@
 % \renewcommand\kanjifamilydefault{\gtdefault} % ゴシック
 % \renewcommand\familydefault{\sfdefault} % sans serif
 % \usepackage{newtxtext,newtxmath} % 数式のフォント
-\renewcommand{\vEmphFont}{\bfseries} % 強調のフォント
+% \renewcommand{\vEmphFont}{\bfseries}
+\renewcommand{\vEmphFont}{\gtfamily\sffamily} % 強調のフォント
 \renewcommand{\headfont}{\gtfamily\sffamily} % 見出しのフォント
 
 %% 数式
@@ -75,9 +99,9 @@
     \hypersetup{% pdf設定
       bookmarksnumbered = true,
       setpagesize       = false,
-      pdftitle    = {白夜 第五号},
+      pdftitle    = {白夜~\vNumbering},
       pdfauthor   = {物理科学研究会},
-      pdfsubject  = {令和二年度 物理科学研究会誌},
+      pdfsubject  = {\vNendo~物理科学研究会誌},
       pdfkeywords = {立命館大学; 学友会学術部; 物理科学研究会; 会誌; 白夜;},
     }
     % \hypersetup{% color
@@ -113,6 +137,10 @@
 %% - - - - - - - - - - - - - - - - - - - - - - - - -
 %%  本文以外の部分
 %% - - - - - - - - - - - - - - - - - - - - - - - - -
+
+%% 表紙
+%% \includegraphics に枠を付けるoption
+\usepackage[export]{adjustbox}
 
 %% 巻頭言・編集後記
 %% usage: \hensyukoki{巻頭言 or 編集後記}{学部}{名前}{日付}
