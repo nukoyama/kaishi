@@ -4,6 +4,9 @@
 ## vscode settings
 .vscode/settings.json
 
+## latexmk settings
+latexmkrc
+
 
 ## タイプセットしてできたpdfは要らない:
 tex/*/*.pdf
