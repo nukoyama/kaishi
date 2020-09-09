@@ -9,6 +9,8 @@
 %% 新規 if 文の宣言
 \newif\ifanalog
 \newif\ifmarge
+\newif\ifcolor
+\colortrue
 
 %% vkaishi クラスの新規オプション
 \DeclareOption{analog}{\analogtrue}
@@ -34,6 +36,9 @@
 
 %% 強調のフォント
 \newcommand\vEmphFont{\headfont}
+
+%% カラー・白黒の場合分け
+\newcommand{\vColor}[2]{\ifcolor#1\else#2\fi}
 
 %% - - - - - - - - - - - - - - - - - - - - - %%
 %% 各章のタイトル出力コマンド \kaishititle の定義

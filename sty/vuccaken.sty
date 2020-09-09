@@ -2,6 +2,8 @@
 %%    This file is "vuccaken.sty"
 %%
 
+\newcommand\vTitle{白夜}
+\newcommand\vTitleRoma{BYAKUYA}
 \newcommand\vNumbering{第五号}
 \newcommand\vNumberingRoma{V}
 \newcommand\vNendo{令和二年度}
@@ -23,8 +25,10 @@
   2018年 & 会誌『白夜 第三号』出版 \\
   2019年 & 会誌『白夜 第四号』出版 \\
         & OB会の開催 \\
-  2020年 & 会誌『白夜 第五号』出版
+  2020年 & コロナ禍で学園祭中止 \\
+        & 会誌『白夜 第五号』出版
 }
+\newcommand\vuccaken{\@ifstar{物理科学研究会}{vuccaken}}
 
 %% - - - - - - - - - - - - - - - - - - - -
 %%  全体の設定
@@ -99,10 +103,10 @@
     \hypersetup{% pdf設定
       bookmarksnumbered = true,
       setpagesize       = false,
-      pdftitle    = {白夜~\vNumbering},
+      pdftitle    = {\vTitle~\vNumbering},
       pdfauthor   = {物理科学研究会},
       pdfsubject  = {\vNendo~物理科学研究会誌},
-      pdfkeywords = {立命館大学; 学友会学術部; 物理科学研究会; 会誌; 白夜;},
+      pdfkeywords = {立命館大学; 学友会学術部; 物理科学研究会; 会誌; \vTitle;},
     }
     % \hypersetup{% color
     %   colorlinks  = true,
@@ -163,11 +167,13 @@
   \end{flushright}\par%
 }
 
-\newcommand\vuccaken{\@ifstar{物理科学研究会}{vuccaken}}
-
 %% - - - - - - - - - - - - - - - - - - - - - - - - -
 %%  共通：便利マクロ
 %% - - - - - - - - - - - - - - - - - - - - - - - - -
+
+%% 和文の句読点エスケープ用
+\newcommand{\vku}{。}  % 句点
+\newcommand{\vtou}{、} % 読点
 
 %% 数式番号付加
 \def\atag{\refstepcounter{equation}\tag{\theequation}}
