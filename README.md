@@ -1,16 +1,13 @@
 This is a repository for vuccaken kaishi.
 
-vuccaken HP: https://vuccaken.github.io
-
-LaTeX tutorial: https://nukoyama.github.io/mkdocs-test/tex/tutorial01/
-
-kaishi tutorial: https://nukoyama.github.io/mkdocs-test/tex/kaishi01/
+- vuccaken HP: https://vuccaken.github.io
+- LaTeX tutorial: https://nukoyama.github.io/mkdocs-test/tex/tutorial01/
+- kaishi tutorial: https://nukoyama.github.io/mkdocs-test/tex/kaishi01/
 
 
 ## General
 
 - タイプセットは `latexmk (uplatex -> dvipdfmx)` で行う。
-
 
 
 ### Directory structure
