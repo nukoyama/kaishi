@@ -6,14 +6,15 @@
 %% typeset: latexmk (uplatex -> dvipdfmx)
 \documentclass[uplatex,dvipdfmx]{vkaishi}
 
-%% vuccaken.sty などを読み込むには，環境変数 `TEXINPUTS` に
-%% このファイルからの相対パス `../../sty/` を追加する必要があります．
-\usepackage{vuccaken}
 % \usepackage{v-hyperref}
+\usepackage{vuccaken}
+\usepackage{template}
+
+% \analogtrue
+% \colorfalse
 
 %% スタイルファイルの読み込み（\usepackage{}）や自作マクロは，
 %% プリアンブル（ここ）ではなく，自分のスタイルファイル（.sty）に書く．
-\usepackage{template}
 
 \begin{document}% - - - - - - - 以下本文 - - - - - - - - - -
 
@@ -21,23 +22,23 @@
 
 %% - - - - - - - - - - - - - - - - - - - - - - - - %%
 \kaishititle%
-  {会誌原稿テンプレート}% title
-  {テンプレ科学科4回生}% 所属
-  {\vname{テンプレ}{太郎}}% name
+  {会誌原稿テンプレート}% タイトル
+  {テンプレ科学科4回生}% 所属・回生
+  {\vname{テンプレ}{太郎}}% 名前
 %% - - - - - - - - - - - - - - - - - - - - - - - - %%
 
 
 %% - - - - - - - - - - - - - - - - - - - - - - - -
 \section*{はじめに}
 %% - - - - - - - - - - - - - - - - - - - - - - - -
-はじめに背景・導入・序論などを書く．
+はじめに，背景・導入・目的などを書くとよい．\par
 概要を書いてもよい．
 
 
 %% - - - - - - - - - - - - - - - - - - - - - - - -
 \section{セクション}
 %% - - - - - - - - - - - - - - - - - - - - - - - -
-chapterは使わない\footnote{kaishi titleがchapterに相当します}．
+chapterは使わない\footnote{タイトル出力がchapterに相当します}．\par
 section以下は自由に使ってよし．
 
 

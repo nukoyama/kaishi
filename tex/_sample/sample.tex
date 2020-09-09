@@ -5,9 +5,8 @@
 %% typeset: latexmk (uplatex -> dvipdfmx)
 \documentclass[uplatex,dvipdfmx]{vkaishi}
 
-\usepackage{vuccaken}
 % \usepackage{v-hyperref}
-
+\usepackage{vuccaken}
 \usepackage{sample}
 
 
@@ -16,28 +15,27 @@
 \mokuji{2} % 目次出力
 
 %% - - - - - - - - - - - - - - - - - - - - - - - - %%
-\kaishititle%
-  {さんぷる}% title
-  {テンプレ科学科4回生}% 所属
-  {\vname{テンプレ}{太郎}}% name
+\kaishititle
+  {さんぷる！}% タイトル
+  {アイドル学科1回生}% 所属・回生
+  {\vname{中須}{かすみ}}% 名前
 %% - - - - - - - - - - - - - - - - - - - - - - - - %%
-
-\helloLaTeX
 
 %
 \section*{はじめに}
-会誌ではjsbookクラスを使用していますが，\texttt{vuccaken.sty}で少し上書きしています．\par
-テーマが複数ある場合は別ファイルで作成してください．
+このファイルは，会誌のサンプルです．\par
+参考にしてください．
 
 %
 \section{セクション}
-このファイルのソースを自分のtexファイルにコピペしてお使いください．
+会誌で使用しているvkaishiクラスは，jsbookクラスをベースにしています．\par
+テーマが複数ある場合は別ファイルで作成してください．
 
 %
 \section{Cheat Sheet}
 
 \subsection{数式環境}
-(\ref{eq:complex})は最強の数式です．
+\eqref{eq:complex}は最強の数式です．
 \begin{align}
   z &= r e^{i\theta} \notag \\
     &= r (\cos\theta + i\sin\theta) \label{eq:complex}
