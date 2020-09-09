@@ -130,6 +130,8 @@
   // syntax coloring
   "files.associations": {
     "*.sty": "latex",
-    ".latexmkrc": "perl"
+    "*.cls": "latex",
+    ".latexmkrc": "perl",
+    "latexmkrc": "perl"
   }
 }
