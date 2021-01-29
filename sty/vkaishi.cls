@@ -6,15 +6,16 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{vkaishi}[2020/08/23 vuccaken kaishi class]
 
+\newcommand\vuccaken{物理科学研究会}
+
 %% 新規 if 文の宣言
 \newif\ifanalog
-\newif\ifmarge
-\newif\ifcolor
-\colortrue
+\newif\ifmerge
+
 
 %% vkaishi クラスの新規オプション
 \DeclareOption{analog}{\analogtrue}
-\DeclareOption{marge}{\margetrue}
+\DeclareOption{merge}{\mergetrue}
 
 %% \documentclass で与えたオプションを、jsbook クラスにも与える。
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{jsbook}}
@@ -23,6 +24,15 @@
 %% デフォルトでオプションを与えつつ、jsbook クラスをロード。
 \LoadClass[10pt,b5paper,papersize]{jsbook}
 
+%% reset side margin
+\setlength{\evensidemargin}{0 in}
+\setlength{\oddsidemargin}{0 in}
+
+%% inner margin
+\ifanalog% ホチキス留め用のスペース確保
+  \addtolength{\oddsidemargin}{.25 in}           % odd(right) page
+  \addtolength{\evensidemargin}{-\oddsidemargin} % even(left) page
+\fi
 
 %% hyperref.styを読み込んでいなくてもOK。
 %% そのときは \texorpdfstring をエスケープ。
@@ -38,20 +48,98 @@
 \newcommand\vEmphFont{\headfont}
 
 %% カラー・白黒の場合分け
-\newcommand{\vColor}[2]{\ifcolor#1\else#2\fi}
+\newif\ifcolor
+\colortrue % default でカラーON
+\newcommand{\vcolor}[2]{\ifcolor#1\else#2\fi}
+
+%% sub tex file での目次出力
+\newcommand\mokuji[1]{%
+  %% merge.tex では無視
+  \ifmerge\else
+    \frontmatter % ページ番号ローマ数字
+    \setcounter{tocdepth}{#1} % 目次に表示する深さ
+    \tableofcontents % 目次出力
+    \mainmatter  % ページ番号アラビア数字
+  \fi
+}
+
+\setcounter{tocdepth}{2} % 目次に表示する深さ
+
+%% 最初に現れた \tableofcontents 以外は無視
+\let\old@tableofcontents\tableofcontents
+\renewcommand\tableofcontents{
+  \old@tableofcontents
+  \renewcommand\tableofcontents\relax
+}
+
+%% 最強のinputコマンド
+\RequirePackage{docmute} % document環境が入子になってもOK
+%% \vInputTeX[dir]{file}
+\newcommand{\vInputTeX}{\@dblarg\v@InputTeX}
+\def\v@InputTeX[#1]#2{%
+  \def\pathToFiles{./tex/#1/}
+  \def\input@path{{\pathToFiles}}
+  \graphicspath{{\pathToFiles}}
+  \input{\pathToFiles#2}
+}
 
 %% - - - - - - - - - - - - - - - - - - - - - %%
-%% 各章のタイトル出力コマンド \kaishititle の定義
+%% \maketitle の再定義
 %% - - - - - - - - - - - - - - - - - - - - - %%
 
-%% \kaishititle{title}{na}{me}
+\renewcommand\maketitle{
+  \kaishititle{\@title}{\@belong}{\@author}
+  \title{}
+  \author{}
+  \belong{}{}\belongfalse
+}
+
+%% \title{title of article}
+\renewcommand\title[1]{\renewcommand\@title{#1}}
+\renewcommand\@title{}
+
+%% \author[na]{me} or \author{name}
+\renewcommand\author[2][]{
+  \renewcommand\@author{\vname[#1]{#2}}
+}
+\renewcommand\@author{}
+
+%% 名前の間にスペースを入れる
+\newcommand\vname[2][]{%
+  \def\temp{#1\relax}%
+  \if\temp\relax\else%
+    #1\name@space%
+  \fi%
+  #2%
+}
+\newcommand\name@space{~}
+
+%% \belong{学部学科}{学年}
+\newcommand\belong[2]{
+  \renewcommand\@belong{#1\belong@space#2\grade@name}
+  \belongtrue
+}
+\newcommand\@belong{}
+
+\newif\ifbelong
+\newcommand\belong@space{}
+\newcommand\grade@name{回生}
+
+%% \kaishititle{title}{belong}{name}
 \newcommand{\kaishititle}[3]{%
-  \vchapter{#2\hspace{1zw}#3}{#1}
+  \ifbelong% if #2
+    \vchapter{#2\hspace{1zw}#3}{#1}
+  \else
+    \vchapter{#3}{#1}
+  \fi
   \vspace{-40pt}
   \begin{flushright}
-    {\vEmphFont \large #2} \\ \vspace{3pt} %所属
-    {\vEmphFont \large #3} \\ \vspace{30pt} %名前
-  \end{flushright}}
+    \ifbelong
+      {\vEmphFont\large#2}\\[3pt]% 所属
+    \fi
+    {\vEmphFont\large#3}\\[30pt]% 名前
+  \end{flushright}
+}
 
 %% \vchapter{name}{title}
 \newcommand{\vchapter}[2]{%
@@ -141,8 +229,12 @@
       \penalty\@highpenalty
     \endgroup
   \fi}
-%% - - - end of definition: \kaishititle - - - - -
+%% end of definition: \maketitle
 
+
+%% - - - - - - - - - - - - - - - - - - - - - %%
+%% 参考文献
+%% - - - - - - - - - - - - - - - - - - - - - %%
 
 %% 参考文献の thebibliography 環境は、
 %% デフォだと chapter なので、section に変更
@@ -172,6 +264,36 @@
     \endlist
 }
 
+%% - - - - - - - - - - - - - - - - - - - - - %%
+%% 巻頭言・編集後記
+%% - - - - - - - - - - - - - - - - - - - - - %%
+
+\newenvironment{preface}[1]{%
+  \cleardoublepage%
+  % \section*{#1}\@mkboth{}{#1}% 本文では section
+  \chapter*{#1}\@mkboth{#1}{}% 本文では chapter
+  \addcontentsline{toc}{chapter}{#1}% 目次では chapter
+}{%
+  % \ifdefined\vEmphFont\vEmphFont\else\headfont\fi
+  \vspace{1zw}\par
+  \@date\par
+  \ifbelong
+    \hfill\@position\par
+  \fi
+  \hfill\@author\par
+  %% reset
+  \author{}
+  \belong{}{}\belongfalse
+  \position{\@belong}
+}
+
+%% 役職
+\newcommand\position[1]{
+  \renewcommand\@position{\vuccaken\position@space#1}
+  \belongtrue
+}
+\newcommand\@position{\@belong}% 役職がなければ所属学科
+\newcommand\position@space{　}
 
 %%
 %%  End of vkaishi.cls
