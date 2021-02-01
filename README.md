@@ -1,16 +1,19 @@
-This is a repository for vuccaken kaishi.
+# kaishi
+
+会誌とか機関誌のためのLaTeXテンプレート。
+
+## Docs
 
 - vuccaken HP: https://vuccaken.github.io
 - LaTeX tutorial: https://nukoyama.github.io/mkdocs-test/tex/tutorial01/
 - kaishi tutorial: https://nukoyama.github.io/mkdocs-test/tex/kaishi01/
 
 
-## General
+## Typeset
 
 - タイプセットは `latexmk (uplatex -> dvipdfmx)` で行う。
 
-
-### Directory structure
+## Directory structure
 
 ```
 kaishi/
@@ -28,7 +31,7 @@ kaishi/
   |
   |- .gitigunore     % git で無視するファイルを指定
   |- .latexmkrc      % latexmk の設定ファイル
-  `- marge.tex       % 各texファイルをまとめる
+  `- merge.tex       % 各texファイルをまとめる
 ```
 
 

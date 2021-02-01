@@ -1,0 +1,44 @@
+%%
+%%  令和〇年度 会誌『白夜』第〇号
+%%
+
+%% typeset: latexmk (uplatex -> dvipdfmx)
+\documentclass[uplatex,dvipdfmx,merge]{vkaishi}
+% \documentclass[uplatex,dvipdfmx,merge,analog]{vkaishi}
+
+% \colorfalse % ON: black-white, OFF: color
+
+% \usepackage{v-hyperref}
+\usepackage{vuccaken}
+
+\usepackage{sample}
+\usepackage{template}
+% \usepackage{nkym}
+
+
+\begin{document} % - - - - - - - - - - - - - - - - -
+
+
+\frontmatter
+\vInputTeX[_BK]{01-frontCover}  % 表紙（表）
+\vInputTeX[_BK]{02-insideCover} % 表紙（中）
+\vInputTeX[_BK]{03-kantogen}    % 巻頭言
+\tableofcontents                % 目次
+
+
+\mainmatter
+\vInputTeX[_template]{template}
+\vInputTeX[_sample]{sample}
+% \vInputTeX{nkym}
+
+
+\backmatter
+\vInputTeX[_BK]{04-hensyukoki} % 編集後記
+\vInputTeX[_BK]{05-okuduke}    % 奥付
+\vInputTeX[_BK]{06-backCover}  % 表紙（裏）
+
+
+\end{document} % - - - - - - - - - - - - - - - - - -
+%%
+%% お疲れさまです
+%%
