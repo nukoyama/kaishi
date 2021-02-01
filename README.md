@@ -13,7 +13,6 @@
 
 - タイプセットは `latexmk (uplatex -> dvipdfmx)` で行う。
 
-
 ## Directory structure
 
 ```
