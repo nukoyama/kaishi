@@ -1,12 +1,8 @@
 # kaishi
 
-for next kaishi......
+会誌とか機関誌のためのLaTeXテンプレート。
 
-- github、ディレクトリごとに`README.md` 置けるっぽい。
-
-## 2020
-
-This is  vuccaken kaishi 2020.
+## Docs
 
 - vuccaken HP: https://vuccaken.github.io
 - LaTeX tutorial: https://nukoyama.github.io/mkdocs-test/tex/tutorial01/
